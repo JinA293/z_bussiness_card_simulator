@@ -51,18 +51,18 @@ div.shapes-container {
 # StreamlitにCSSを追加します。
 st.markdown(SHAPE_STYLE, unsafe_allow_html=True)
 
-# 4つの色を管理するための変数を初期化します。
-if 'colors' not in st.session_state:
-    st.session_state.colors = ['#c6171e', '#221a18', '#0e3a78', '#f4aa1b']  # デフォルト色
+# 初期色の定義
+DEFAULT_COLORS = ['#c6171e', '#221a18', '#0e3a78', '#f4aa1b']
+PLACE_NAMES = ["左上", "右上", "左下", "右下"]
 
-place_list = ["左上", "右上", "左下", "右下"]
+# カラーコードの入力欄を生成する関数
+def create_color_inputs():
+    return [st.text_input(f"{PLACE_NAMES[i]} のオブジェクトカラーコード", value=st.session_state.colors[i], key=f"color_{i}") for i in range(4)]
 
-# カラーコードの入力欄を生成します。
-color_codes = [st.text_input(f"{place_list[i]} のオブジェクトカラーコード", value=st.session_state.colors[i], key=f"color_{i}") for i in range(4)]
-
-# 反映ボタンを配置します。このボタンは4つの色を全て反映します。
-if st.button("カラーコードを反映"):
-    st.session_state.colors = color_codes
+# カラーコードを反映するボタンを生成する関数
+def create_apply_button():
+    if st.button("カラーコードを反映"):
+        st.session_state.colors = color_inputs
 
 # 形状を描画する関数
 def draw_shapes():
@@ -86,5 +86,17 @@ def draw_shapes():
         unsafe_allow_html=True
     )
 
-# 形状を描画します。
-draw_shapes()
+# メインの処理
+if __name__ == "__main__":
+    # セッションステートの初期化
+    if 'colors' not in st.session_state:
+        st.session_state.colors = DEFAULT_COLORS
+
+    # カラーコードの入力欄を生成
+    color_inputs = create_color_inputs()
+
+    # カラーコードを反映するボタンを生成
+    create_apply_button()
+
+    # 形状を描画
+    draw_shapes()
