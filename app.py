@@ -100,3 +100,13 @@ if __name__ == "__main__":
 
     # 形状を描画
     draw_shapes()
+
+# githubのURLを下部中央に追加する
+st.markdown(
+    """
+    <div style="text-align: center; margin-top: 20px;">
+        <a href="https://github.com/JinA293/z_bussiness_card_simulator" target="_blank">GitHub</a>
+    </div>
+    """,
+    unsafe_allow_html=True
+)
