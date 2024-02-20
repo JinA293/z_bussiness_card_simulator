@@ -58,7 +58,7 @@ if 'colors' not in st.session_state:
 place_list = ["左上", "右上", "左下", "右下"]
 
 # カラーコードの入力欄を生成します。
-color_codes = [st.text_input(f"形状 {i+1} のカラーコード", value=st.session_state.colors[i], key=f"color_{i}") for i in range(4)]
+color_codes = [st.text_input(f"{place_list[i]} のオブジェクトカラーコード", value=st.session_state.colors[i], key=f"color_{i}") for i in range(4)]
 
 # 反映ボタンを配置します。このボタンは4つの色を全て反映します。
 if st.button("カラーコードを反映"):
